@@ -25,7 +25,7 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-type MyReturnType<T> = any
+type MyReturnType<T extends Function> = T extends (...args: any[]) => infer R ? R : never
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
@@ -47,7 +47,7 @@ type ComplexObject = {
 }
 
 const fn = (v: boolean) => v ? 1 : 2
-const fn1 = (v: boolean, w: any) => v ? 1 : 2
+const fn1 = (v: boolean, _w: any) => v ? 1 : 2
 
 /* _____________ 次のステップ _____________ */
 /*
