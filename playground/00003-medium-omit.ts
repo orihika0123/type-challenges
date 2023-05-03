@@ -28,7 +28,14 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-type MyOmit<T, K> = any
+// mapped typesのkey remapping(asを使ってkeyを上書き)機能を利用。
+type MyOmit<T, K extends keyof T> = {
+  [key in keyof T as key extends K ? never : key]: T[key]
+}
+
+// type MyOmit<T, K extends keyof T> = {
+//   [key in Exclude<keyof T, K>]: T[key]
+// }
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
