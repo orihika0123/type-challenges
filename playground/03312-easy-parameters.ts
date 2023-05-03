@@ -20,12 +20,14 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-type MyParameters<T extends (...args: any[]) => any> = any
+type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer Args) => any ? Args : never
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+// @ts-expect-error
 const foo = (arg1: string, arg2: number): void => {}
+// @ts-expect-error
 const bar = (arg1: boolean, arg2: { a: 'A' }): void => {}
 const baz = (): void => {}
 
