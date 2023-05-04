@@ -33,8 +33,7 @@
 */
 
 /* _____________ ここにコードを記入 _____________ */
-
-type MyReadonly2<T, K> = any
+type MyReadonly2<T, K extends keyof T = keyof T> = Omit<T, K> & Readonly<Pick<T, K>>
 
 /* _____________ テストケース _____________ */
 import type { Alike, Expect } from '@type-challenges/utils'
