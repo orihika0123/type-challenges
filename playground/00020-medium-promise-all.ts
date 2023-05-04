@@ -23,7 +23,10 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-declare function PromiseAll(values: any): any
+// よくわからん。。
+declare function PromiseAll<T extends any[]>(values: readonly [...T]): Promise<{
+  [key in keyof T]: Awaited<T[key]>
+}>
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
