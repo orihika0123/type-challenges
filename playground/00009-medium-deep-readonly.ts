@@ -36,7 +36,15 @@
 
 /* _____________ ここにコードを記入 _____________ */
 
-type DeepReadonly<T> = any
+// このやり方だと、nullや関数、プリミティブ型のラッパーオブジェクトに対してもDeepReadonlyを適用してしまう
+// type DeepReadonly<T> = {
+//   readonly [key in keyof T]: T[key] extends {} ? DeepReadonly<T[key]> : T[key]
+// }
+
+// 対象がオブジェクトかどうか(プロパティが存在するかどうか)をkeyof T[key] extends neverで判定する
+type DeepReadonly<T> = {
+  readonly [K in keyof T]: keyof T[K] extends never ? T[K] : DeepReadonly<T[K]>
+}
 
 /* _____________ テストケース _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
